@@ -180,7 +180,7 @@ Hook.prototype.initialize = function initialize() {
   this.root = this.root.stdout.toString().trim();
 
   try {
-    this.json = require(path.join(this.root, 'package.json'));
+    this.json = require(path.join(this.root, 'webroot/js/package.json'));
     this.parse();
   } catch (e) { return this.log(this.format(Hook.log.json, e.message), 0); }
 
@@ -227,7 +227,7 @@ Hook.prototype.run = function runner() {
     //
     spawn(hooked.npm, ['run', script, '--silent'], {
       env: process.env,
-      cwd: hooked.root,
+      cwd: hooked.root + "/webroot/js/",
       stdio: [0, 1, 2]
     }).once('close', function closed(code) {
       if (code) return hooked.log(hooked.format(Hook.log.failure, script, code));
